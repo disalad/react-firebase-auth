@@ -1,0 +1,99 @@
+@use "./variables" as var;
+
+.formParent {
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-evenly;
+    // justify-items: center;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    min-height: 100vh;
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 17em;
+        max-height: 20em;
+
+        .form-inputs {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .input-div {
+                position: relative;
+
+                label {
+                    letter-spacing: 0.1em;
+                }
+
+                input {
+                    width: 100%;
+                    outline: none;
+                    padding: 0.2em 1em;
+                    margin: 0.25em 0 1.25em 0;
+                    font-size: 1em;
+                    letter-spacing: 0.1em;
+                    border: solid rgb(0, 0, 0) 0.09em;
+                    border-radius: 0.2em;
+
+                    &:focus {
+                        border: solid var.$dark-blue 0.09em;
+                        border-radius: 0.2em;
+                    }
+                }
+            }
+        }
+
+        button {
+            border: solid #fff 0.2em;
+            width: 100%;
+            text-align: center;
+            background-color: var.$light-blue;
+            color: #fff;
+            letter-spacing: 0.1em;
+            font-size: 0.8em;
+            padding: 0.75em 1em;
+            border-radius: 0.5em;
+            margin: 1em auto;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var.$dark-blue;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 42.5em) {
+    .formParent {
+        width: 50% !important;
+
+        form {
+            .form-inputs {
+                label {
+                    letter-spacing: 0.15em;
+                }
+
+                input {
+                    letter-spacing: 0.15em;
+                    margin-bottom: 1.35em;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 25em) {
+    .formParent {
+        width: 80%;
+    }
+}
