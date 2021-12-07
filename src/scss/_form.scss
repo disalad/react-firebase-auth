@@ -49,6 +49,10 @@
                         border: solid var.$dark-blue 0.09em;
                         border-radius: 0.2em;
                     }
+                    
+                    &.error {
+                        border-color: var.$red;
+                    }
                 }
             }
         }

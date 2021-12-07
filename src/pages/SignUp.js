@@ -1,22 +1,58 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { usernameValidation, emailValidation, passwordValidation } from '../utils/formValidation';
 
 function SignUp() {
+    const usernameElement = useRef();
+    const emailElement = useRef();
+    const passwdElement = useRef();
+    const [usernameHasErr, usernameSetError] = useState(false);
+    const [emailHasErr, emailSetError] = useState(false);
+    const [passwdHasErr, passwdSetError] = useState(false);
+
+    const formSubmitHandler = ev => {
+        ev.preventDefault();
+        const email = emailElement.current.value;
+        const password = passwdElement.current.value;
+        const username = usernameElement.current.value;
+        usernameSetError(usernameValidation(username));
+        emailSetError(emailValidation(email));
+        passwdSetError(passwordValidation(password));
+        if (!usernameHasErr && !emailHasErr && !passwdHasErr) {
+            console.warn('SUCCESS');
+        }
+    };
+
     return (
         <React.Fragment>
-            <form action='#' autoComplete='off'>
+            <form action='#' autoComplete='off' onSubmit={formSubmitHandler}>
                 <div className='form-inputs'>
                     <div className='username-div input-div'>
                         <label htmlFor='username'>Username</label>
-                        <input type='text' id='username' />
+                        <input
+                            type='text'
+                            id='username'
+                            className={usernameHasErr ? 'error' : ''}
+                            ref={usernameElement}
+                        />
                     </div>
                     <div className='email-div input-div'>
                         <label htmlFor='email'>Email</label>
-                        <input type='email' id='email' />
+                        <input
+                            type='email'
+                            id='email'
+                            className={emailHasErr ? 'error' : ''}
+                            ref={emailElement}
+                        />
                     </div>
                     <div className='passwd-div input-div'>
                         <label htmlFor='passwd'>Password</label>
-                        <input type='password' id='passwd' />
+                        <input
+                            type='password'
+                            id='passwd'
+                            className={passwdHasErr ? 'error' : ''}
+                            ref={passwdElement}
+                        />
                     </div>
                 </div>
                 <button type='submit'>Sign Up</button>
