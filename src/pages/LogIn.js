@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { usernameValidation, passwordValidation } from '../utils/formValidation';
 
 function LogIn() {
+    const firstUpdate = useRef(true);
     const usernameElement = useRef();
     const passwdElement = useRef();
     const [usernameHasErr, usernameSetError] = useState(false);
@@ -15,6 +16,16 @@ function LogIn() {
         usernameSetError(usernameValidation(username));
         passwdSetError(passwordValidation(password));
     };
+
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+        if (!usernameHasErr && !passwdHasErr) {
+            console.warn('SUCCESS');
+        }
+    });
 
     return (
         <React.Fragment>
