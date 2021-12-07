@@ -49,9 +49,25 @@
                         border: solid var.$dark-blue 0.09em;
                         border-radius: 0.2em;
                     }
-                    
+
                     &.error {
                         border-color: var.$red;
+                    }
+                }
+
+                .error-text {
+                    display: block;
+                    position: absolute;
+                    bottom: -10%;
+                    color: var.$red;
+                    margin: 0;
+                    margin-bottom: 1em;
+                    font-size: 0.75em;
+                    line-height: 1.2;
+
+                    svg {
+                        margin-right: 0.25em;
+                        margin-left: 0.25em;
                     }
                 }
             }

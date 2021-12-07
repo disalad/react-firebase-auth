@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usernameValidation, passwordValidation } from '../utils/formValidation';
 
 function LogIn() {
@@ -39,6 +41,12 @@ function LogIn() {
                             className={usernameHasErr ? 'error' : ''}
                             ref={usernameElement}
                         />
+                        {usernameHasErr && (
+                            <p className={'error-text'}>
+                                <FontAwesomeIcon icon={faExclamationCircle} />
+                                Username should contain 6 or more letters
+                            </p>
+                        )}
                     </div>
                     <div className='passwd-div input-div'>
                         <label htmlFor='passwd'>Password</label>
@@ -48,6 +56,12 @@ function LogIn() {
                             className={passwdHasErr ? 'error' : ''}
                             ref={passwdElement}
                         />
+                        {passwdHasErr && (
+                            <p className={'error-text'}>
+                                <FontAwesomeIcon icon={faExclamationCircle} />
+                                Password is not valid
+                            </p>
+                        )}
                     </div>
                 </div>
                 <button type='submit'>Log In</button>

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usernameValidation, emailValidation, passwordValidation } from '../utils/formValidation';
 
 function SignUp() {
@@ -43,6 +45,12 @@ function SignUp() {
                             className={usernameHasErr ? 'error' : ''}
                             ref={usernameElement}
                         />
+                        {usernameHasErr && (
+                            <p className={'error-text'}>
+                                <FontAwesomeIcon icon={faExclamationCircle} />
+                                Username should contain 6 or more letters
+                            </p>
+                        )}
                     </div>
                     <div className='email-div input-div'>
                         <label htmlFor='email'>Email</label>
@@ -52,6 +60,12 @@ function SignUp() {
                             className={emailHasErr ? 'error' : ''}
                             ref={emailElement}
                         />
+                        {emailHasErr && (
+                            <p className={'error-text'}>
+                                <FontAwesomeIcon icon={faExclamationCircle} />
+                                Email is invalid
+                            </p>
+                        )}
                     </div>
                     <div className='passwd-div input-div'>
                         <label htmlFor='passwd'>Password</label>
@@ -61,6 +75,12 @@ function SignUp() {
                             className={passwdHasErr ? 'error' : ''}
                             ref={passwdElement}
                         />
+                        {passwdHasErr && (
+                            <p className={`error-text`}>
+                                <FontAwesomeIcon icon={faExclamationCircle} />
+                                Password is not valid
+                            </p>
+                        )}
                     </div>
                 </div>
                 <button type='submit'>Sign Up</button>
