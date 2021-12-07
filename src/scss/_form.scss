@@ -60,14 +60,33 @@
             background-color: var.$light-blue;
             color: #fff;
             letter-spacing: 0.1em;
-            font-size: 0.8em;
-            padding: 0.75em 1em;
+            font-size: 0.9em;
+            padding: 0.7em 1em;
             border-radius: 0.5em;
             margin: 1em auto;
             cursor: pointer;
 
             &:hover {
                 background-color: var.$dark-blue;
+            }
+        }
+    }
+
+    .navigator {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        a {
+            cursor: pointer;
+            color: inherit;
+            text-transform: uppercase;
+            margin-left: 0.5em;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
             }
         }
     }
@@ -95,5 +114,9 @@
 @media screen and (min-width: 25em) {
     .formParent {
         width: 80%;
+
+        .navigator {
+            flex-direction: row;
+        }
     }
 }
