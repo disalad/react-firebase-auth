@@ -54,7 +54,7 @@ function AuthContextProvider({ children }) {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    function logOutUser() {
+    function signOutUser() {
         return signOut(auth);
     }
 
@@ -64,7 +64,7 @@ function AuthContextProvider({ children }) {
         updateUserProfile,
         sendVerificationEmail,
         logInUser,
-        logOutUser,
+        signOutUser,
     };
 
     if (loading) {

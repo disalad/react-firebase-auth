@@ -47,6 +47,8 @@ function SignUp() {
             const errorCode = error.code;
             if (errorCode === 'auth/email-already-in-use') {
                 setError('Email has already been taken, Please log in');
+            } else {
+                setError('An error occured please try again later');
             }
         } finally {
             setSigninLoading(false);
@@ -54,21 +56,36 @@ function SignUp() {
     };
 
     return (
-        <React.Fragment>
+        <section className='form-section'>
             {error && <Alert message={error}></Alert>}
             <form action='#' autoComplete='off' onSubmit={formSubmitHandler}>
                 <div className='form-inputs'>
                     <div className='username-div input-div'>
                         <label htmlFor='username'>Username</label>
-                        <input type='text' id='username' ref={usernameElement} />
+                        <input
+                            type='text'
+                            id='username'
+                            ref={usernameElement}
+                            placeholder='john doe'
+                        />
                     </div>
                     <div className='email-div input-div'>
                         <label htmlFor='email'>Email</label>
-                        <input type='email' id='email' ref={emailElement} />
+                        <input
+                            type='email'
+                            id='email'
+                            ref={emailElement}
+                            placeholder='example@example.com'
+                        />
                     </div>
                     <div className='passwd-div input-div'>
                         <label htmlFor='passwd'>Password</label>
-                        <input type='password' id='passwd' ref={passwdElement} />
+                        <input
+                            type='password'
+                            id='passwd'
+                            ref={passwdElement}
+                            placeholder='xxxxxx'
+                        />
                     </div>
                 </div>
                 <button type='submit'>
@@ -83,7 +100,7 @@ function SignUp() {
                 Already Have an Account?
                 <Link to='/log-in'>Log In</Link>
             </p>
-        </React.Fragment>
+        </section>
     );
 }
 

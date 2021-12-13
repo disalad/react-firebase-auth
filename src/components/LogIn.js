@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { usernameValidation, passwordValidation } from '../utils/formValidation';
+import { usernameValidation } from '../utils/formValidation';
 import { useAuth } from '../store/authContext';
 import Alert from './Alert';
 
@@ -20,9 +20,7 @@ function LogIn() {
 
     const validateForm = (username, password) => {
         if (usernameValidation(username)) {
-            setError('Username should contain 6 or more characters');
-        } else if (passwordValidation(password)) {
-            setError('Please enter a strong password');
+            setError('Please Enter a valid email');
         } else {
             setError('');
             console.warn('SUCCESS');
@@ -32,21 +30,35 @@ function LogIn() {
 
     const logInHandler = async (username, password) => {
         const { logInUser } = auth;
-        logInUser(username, password);
+        logInUser(username, password)
+            .then(() => {})
+            .catch(error => {
+                setError('Invalid Email or Password');
+            });
     };
 
     return (
-        <React.Fragment>
+        <section className='form-section'>
             {error && <Alert message={error}></Alert>}
             <form action='#' autoComplete='off' onSubmit={formSubmitHandler}>
                 <div className='form-inputs'>
                     <div className='username-div input-div'>
-                        <label htmlFor='username'>Username or Email</label>
-                        <input type='text' id='username' ref={usernameElement} />
+                        <label htmlFor='username'>Email</label>
+                        <input
+                            type='text'
+                            id='username'
+                            ref={usernameElement}
+                            placeholder='example@example.com'
+                        />
                     </div>
                     <div className='passwd-div input-div'>
                         <label htmlFor='passwd'>Password</label>
-                        <input type='password' id='passwd' ref={passwdElement} />
+                        <input
+                            type='password'
+                            id='passwd'
+                            ref={passwdElement}
+                            placeholder='xxxxxxx'
+                        />
                     </div>
                 </div>
                 <button type='submit'>Log In</button>
@@ -55,7 +67,7 @@ function LogIn() {
                 Don't Have an Acoount?
                 <Link to='/sign-up'>Sign Up</Link>
             </p>
-        </React.Fragment>
+        </section>
     );
 }
 

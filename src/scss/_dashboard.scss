@@ -1,0 +1,129 @@
+@use './variables' as var;
+
+#dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr;
+    grid-template-areas:
+        'title'
+        'profile';
+
+    h1 {
+        text-align: center;
+        grid-area: title;
+    }
+
+    article {
+        background-color: var.$greenish-light-blue;
+        border-radius: 1em;
+        padding: 0.5em 1.25em;
+        grid-area: profile;
+
+        .profile {
+            background-color: var.$greenish-light-blue;
+            border-radius: 1em;
+            padding: 0.5em 1.25em;
+
+            .username {
+                font-weight: 600;
+
+                span {
+                    font-weight: 700;
+                }
+            }
+
+            .email {
+                font-weight: 100;
+            }
+        }
+
+        .action-btns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-width: 100%;
+            gap: 0.75em;
+            margin: 0 0 1em 0;
+
+            .edit-profile {
+                border: none;
+                display: block;
+                position: relative;
+                padding: 0.35em 0.45em;
+                font-size: 0.95em;
+                background: transparent;
+                cursor: pointer;
+                user-select: none;
+                overflow: hidden;
+                color: royalblue;
+                z-index: 1;
+                font-family: inherit;
+                font-weight: 500;
+
+                a {
+                    text-decoration: none;
+                    color: inherit;
+                }
+
+                span {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: transparent;
+                    z-index: -1;
+                    border: 2px solid royalblue;
+                }
+
+                span::before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    width: 8%;
+                    height: 500%;
+                    background: var(--lightgray);
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) rotate(-60deg);
+                    transition: all 0.3s;
+                }
+
+                &:hover span::before {
+                    transform: translate(-50%, -50%) rotate(-90deg);
+                    width: 100%;
+                    background: royalblue;
+                }
+
+                &:hover {
+                    color: white;
+                }
+
+                &:active span::before {
+                    background: #2751cd;
+                }
+            }
+
+            .sign-out {
+                background-color: #fff;
+                z-index: 1;
+                position: relative;
+                overflow: hidden;
+                color: var.$red;
+                border: 2px solid var.$red;
+                padding: 0.25em 0.45em;
+                font-family: Arial;
+                font-weight: 600;
+                font-size: 1.05em;
+                transition: background-color, color 0.5s ease;
+                cursor: pointer;
+
+                &:hover {
+                    color: #fff;
+                    background-color: var.$red;
+                }
+            }
+        }
+    }
+}
