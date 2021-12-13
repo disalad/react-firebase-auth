@@ -38,11 +38,12 @@ function SignUp() {
     };
 
     const signUpHandler = async (username, email, password) => {
-        const { createUser, updateUserProfile } = auth;
+        const { createUser, updateUserProfile, sendVerificationEmail } = auth;
         try {
             setSigninLoading(true);
             await createUser(email, password);
             await updateUserProfile(username);
+            await sendVerificationEmail();
         } catch (error) {
             const errorCode = error.code;
             if (errorCode === 'auth/email-already-in-use') {

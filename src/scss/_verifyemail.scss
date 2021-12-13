@@ -1,0 +1,42 @@
+@use './variables' as var;
+
+.verify-email {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    & > * {
+        text-align: center;
+    }
+
+    h1 {
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+
+    h2 {
+        font-weight: 100;
+    }
+
+    .sign-out {
+        background-color: #fff;
+        z-index: 1;
+        position: relative;
+        overflow: hidden;
+        color: var.$red;
+        border: 1px solid var.$red;
+        padding: 0.25em 0.45em;
+        font-family: Arial;
+        font-weight: 600;
+        font-size: 1em;
+        transition: background-color, color 0.5s ease;
+        cursor: pointer;
+
+        &:hover {
+            color: #fff;
+            background-color: var.$red;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useEffect, useContext, useState } from 'react';
 import {
     onAuthStateChanged,
     getAuth,
@@ -18,19 +18,16 @@ export function useAuth() {
 }
 
 function AuthContextProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const auth = getAuth(app);
-        onAuthStateChanged(auth, user => {
+        const unsub = onAuthStateChanged(auth, user => {
             setCurrentUser(user);
             setLoading(false);
             console.warn(auth.currentUser);
         });
-        return () => {
-            setCurrentUser(null);
-        };
+        return unsub;
     }, []);
 
     function createUser(email, password) {
@@ -45,9 +42,12 @@ function AuthContextProvider({ children }) {
     }
 
     function sendVerificationEmail() {
-        return sendEmailVerification(auth.currentUser).then(() => {
-            console.log('Email Verification Sent...');
-        });
+        console.log(auth.currentUser.emailVerified);
+        if (!auth.currentUser.emailVerified) {
+            return sendEmailVerification(auth.currentUser).then(() => {
+                console.log('Email Verification Sent...');
+            });
+        }
     }
 
     function logInUser(email, password) {

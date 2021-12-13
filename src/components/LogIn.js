@@ -29,12 +29,13 @@ function LogIn() {
     };
 
     const logInHandler = async (username, password) => {
-        const { logInUser } = auth;
-        logInUser(username, password)
-            .then(() => {})
-            .catch(error => {
-                setError('Invalid Email or Password');
-            });
+        const { logInUser, sendVerificationEmail } = auth;
+        try {
+            await logInUser(username, password);
+            await sendVerificationEmail();
+        } catch (error) {
+            setError('Invalid Email or Password');
+        }
     };
 
     return (

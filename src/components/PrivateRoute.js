@@ -4,6 +4,9 @@ import { useAuth } from '../store/authContext';
 
 function PrivateRoute() {
     const { currentUser } = useAuth();
+    if (currentUser !== null && !currentUser.emailVerified) {
+        return <Navigate to='/verify' />;
+    }
     return currentUser ? <Outlet /> : <Navigate to='/log-in' />;
 }
 
