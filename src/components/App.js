@@ -9,6 +9,7 @@ import VerifyRoute from './VerifyRoute';
 import Dashboard from './Dashboard';
 import EditProfile from './EditProfile';
 import VerifyEmail from './VerifyEmail';
+import NotFound404 from './NotFound404';
 import '../css/main.css';
 
 function App() {
@@ -41,6 +42,9 @@ function App() {
                     <Route path='/verify' element={<VerifyRoute />}>
                         <Route path='/verify' element={<VerifyEmail />} />
                     </Route>
+
+                    {/* 404 Not Found */}
+                    <Route path='*' exact element={<NotFound404 />} />
                 </Routes>
             </BrowserRouter>
         </AuthContextProvider>
