@@ -19,7 +19,6 @@ function SignUp() {
         const username = usernameElement.current.value;
         const email = emailElement.current.value;
         const password = passwdElement.current.value;
-        console.log('SUBMITTING...');
         validateForm(username, email, password);
     };
 
@@ -38,12 +37,20 @@ function SignUp() {
     };
 
     const signUpHandler = async (username, email, password) => {
-        const { createUser, updateUserProfile, sendVerificationEmail } = auth;
+        const { createUser, updateUserProfile, sendVerificationEmail, setDefaultProfilePicture } =
+            auth;
         try {
             setSigninLoading(true);
-            await createUser(email, password);
-            await updateUserProfile(username);
-            await sendVerificationEmail();
+            await createUser(email, password)
+                .then(() => {
+                    updateUserProfile(username);
+                })
+                .then(() => {
+                    setDefaultProfilePicture();
+                })
+                .then(() => {
+                    sendVerificationEmail();
+                })
         } catch (error) {
             const errorCode = error.code;
             if (errorCode === 'auth/email-already-in-use') {
@@ -51,7 +58,6 @@ function SignUp() {
             } else {
                 setError('An error occured please try again later');
             }
-        } finally {
             setSigninLoading(false);
         }
     };

@@ -15,7 +15,10 @@ function VerifyEmail() {
 
     return (
         <section className='verify-email'>
-            <h1>A verification link has been sent to your email </h1>
+            <h1>
+                A verification link has been sent to your email <br /> Please realod the page after
+                you verified
+            </h1>
             <h2>{hideEmail(auth.currentUser.email)}</h2>
             <button onClick={auth.signOutUser} className='sign-out'>
                 Sign Out

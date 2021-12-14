@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AuthContextProvider from '../store/authContext';
 import SignUp from './SignUp';
 import LogIn from './LogIn';
@@ -20,7 +20,10 @@ function App() {
                 <Routes>
                     {/*PrivateRoutes*/}
                     <Route exact path='/' element={<PrivateRoute />}>
-                        <Route exact path='/' element={<Dashboard />} />
+                        <Route exact path='/' element={<Navigate to='/dashboard' />} />
+                    </Route>
+                    <Route exact path='/dashboard' element={<PrivateRoute />}>
+                        <Route exact path='/dashboard' element={<Dashboard />} />
                     </Route>
                     <Route path='/edit-profile' element={<PrivateRoute />}>
                         <Route path='/edit-profile' element={<EditProfile />} />

@@ -1,4 +1,5 @@
 import { createContext, useEffect, useContext, useState } from 'react';
+import app from '../firebase';
 import {
     onAuthStateChanged,
     getAuth,
@@ -8,7 +9,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from 'firebase/auth';
-import app from '../firebase';
+import uploadImg from './firestore';
 
 const AuthContext = createContext();
 const auth = getAuth();
@@ -25,29 +26,38 @@ function AuthContextProvider({ children }) {
         const unsub = onAuthStateChanged(auth, user => {
             setCurrentUser(user);
             setLoading(false);
-            console.warn(auth.currentUser);
+            console.warn(user);
         });
         return unsub;
     }, []);
 
     function createUser(email, password) {
-        console.warn('CREATING USER');
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
-    function updateUserProfile(displayName) {
+    async function updateUserProfile(username, imgUrl) {
         return updateProfile(auth.currentUser, {
-            displayName,
+            displayName: username,
+            photoURL: imgUrl,
         });
     }
 
     function sendVerificationEmail() {
-        console.log(auth.currentUser.emailVerified);
         if (!auth.currentUser.emailVerified) {
             return sendEmailVerification(auth.currentUser).then(() => {
                 console.log('Email Verification Sent...');
             });
+        } else {
+            console.log('Already Verified');
         }
+    }
+
+    function setDefaultProfilePicture() {
+        const imgUrl =
+            'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';
+        return updateProfile(auth.currentUser, {
+            photoURL: imgUrl,
+        });
     }
 
     function logInUser(email, password) {
@@ -65,6 +75,7 @@ function AuthContextProvider({ children }) {
         sendVerificationEmail,
         logInUser,
         signOutUser,
+        setDefaultProfilePicture,
     };
 
     if (loading) {

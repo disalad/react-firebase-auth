@@ -1,9 +1,10 @@
 @use './variables' as var;
+@use './dashboardSkeleton';
 
 #dashboard {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 3fr;
+    grid-template-rows: 1fr 4fr;
     grid-template-areas:
         'title'
         'profile';
@@ -23,9 +24,24 @@
             background-color: var.$greenish-light-blue;
             border-radius: 1em;
             padding: 0.5em 1.25em;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                border-radius: 50%;
+                width: 7.5em;
+                height: 7.5em;
+                object-fit: cover;
+            }
 
             .username {
                 font-weight: 600;
+                margin-bottom: 0.5em;
+                white-space: nowrap;
 
                 span {
                     font-weight: 700;
@@ -33,7 +49,9 @@
             }
 
             .email {
+                margin-top: 0;
                 font-weight: 100;
+                white-space: nowrap;
             }
         }
 

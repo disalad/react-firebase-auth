@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { usernameValidation } from '../utils/formValidation';
 import { useAuth } from '../store/authContext';
 import Alert from './Alert';
@@ -9,12 +11,13 @@ function LogIn() {
     const usernameElement = useRef();
     const passwdElement = useRef();
     const [error, setError] = useState('');
+    const [logInLoading, setLogInLoading] = useState(false);
 
     const formSubmitHandler = ev => {
         ev.preventDefault();
         const username = usernameElement.current.value;
         const password = passwdElement.current.value;
-        console.log('SUBMITTING...');
+        setLogInLoading(true);
         validateForm(username, password);
     };
 
@@ -35,6 +38,7 @@ function LogIn() {
             await sendVerificationEmail();
         } catch (error) {
             setError('Invalid Email or Password');
+            setLogInLoading(false);
         }
     };
 
@@ -62,7 +66,13 @@ function LogIn() {
                         />
                     </div>
                 </div>
-                <button type='submit'>Log In</button>
+                <button type='submit'>
+                    {logInLoading ? (
+                        <FontAwesomeIcon icon={faSpinner} className='loader' />
+                    ) : (
+                        <>Log In</>
+                    )}
+                </button>
             </form>
             <p className='navigator'>
                 Don't Have an Acoount?
