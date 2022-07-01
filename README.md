@@ -14,7 +14,7 @@ _Below is an example of how you can instruct your audience on installing and set
 2. Clone the repository
 
     ```sh
-    git clone https://github.com/disaladamsas/react-firebase-login-system
+    git clone https://github.com/disalad/react-firebase-login-system
     ```
 
 3. Install NPM packages
